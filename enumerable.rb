@@ -43,4 +43,25 @@ module Enumerable
         return false
     end
     # puts [1, 2, 3, 4, 5, 6, 7, 8, 9.2].my_any? {|x| x.is_a? Float}
+
+    def my_none?
+        for i in 0..self.length - 1
+            if yield(self[i]) == true
+                return false
+            end
+        end
+        return true
+    end
+    # puts [1, 2, 3, 4, 5, 6, 7, 8, 9.2].my_none? {|x| x.is_a? Float}
+
+    def my_count
+        counter = 0
+        for i in 0..self.length - 1
+            if yield(self[i]) == true
+                counter += 1
+            end
+        end
+        return counter
+    end
+    # puts [1, 2, 55, 66, 22, 4102351, 21].my_count {|x| x.odd?}
 end
