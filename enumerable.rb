@@ -64,4 +64,26 @@ module Enumerable
         return counter
     end
     # puts [1, 2, 55, 66, 22, 4102351, 21].my_count {|x| x.odd?}
+
+    def my_map
+        arr = []
+        for i in 0..self.length - 1
+            arr << yield(self[i])
+        end
+        return arr
+    end
+    # puts [1, 2, 3].map { |x| x * x }
+
+    def my_inject(initial=0)
+        if initial == 0
+            initial = self[0]
+            arr = self.drop(1)
+            arr.my_each { |x| initial = yield(initial, x)}
+        else
+            self.my_each { |x| initial = yield(initial, x)}
+        end
+        return initial
+    end
+    # puts [2, 4, 5].my_inject() { |sum, n| sum + n}
+    # puts [2, 4, 5].my_inject() { |product, x| product * x}
 end
