@@ -65,14 +65,23 @@ module Enumerable
     end
     # puts [1, 2, 55, 66, 22, 4102351, 21].my_count {|x| x.odd?}
 
-    def my_map
-        arr = []
-        for i in 0..self.length - 1
-            arr << yield(self[i])
+    def my_map(my_proc=nil)
+        if my_proc != nil
+            arr = []
+            for i in 0..self.length - 1
+                arr << my_proc.call(self[i])
+            end
+        elsif block_given? && my_proc == nil
+            arr = []
+            for i in 0..self.length - 1
+                arr << yield(self[i])
+            end
         end
         return arr
     end
-    # puts [1, 2, 3].map { |x| x * x }
+    # a_proc = Proc.new { |x| x * x}
+    # puts [1, 2, 3].my_map(a_proc)
+    # puts [4, 5, 6].my_map { |x| x + x}
 
     def my_inject(initial=0)
         if initial == 0
